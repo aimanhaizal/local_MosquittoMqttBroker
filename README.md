@@ -148,7 +148,7 @@ If you are unable to save the ```mosquitto.conf``` file because of ```(NoPermiss
    **Step 3: Change file ownership**
    If the file is owned by `root` or another user, you can change the ownership using the `chown` command:
    ```bash
-   sudo chown yourusername:yourgroup mosquitto.conf
+   sudo chown aiman:aiman mosquitto.conf
    ```
 
    Replace `yourusername` with your actual username and `yourgroup` with your group (usually the same as your username).
