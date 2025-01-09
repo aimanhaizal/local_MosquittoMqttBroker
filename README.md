@@ -162,4 +162,30 @@ If you are unable to save the ```mosquitto.conf``` file because of ```(NoPermiss
 whoami 
   id 
   sudo chown yourusername:yourgroup mosquitto.conf 
-   ```   
+   ```
+
+# Part2: Connecting to the mosquitto container inside a docker container
+This part tries to explain how to publish to the host while being inside a docker container. Using ```localhost``` will not work as that connection inside a docker container points to the container itself. All this will cause ```Error: Connection refused``` error.
+
+---
+
+### Use the Host's IP Address
+Find the IP address of your Docker host:
+
+1. Run this command on the host machine to find its IP:
+   ```bash
+   hostname -I
+   ```
+2. Use this IP address instead of `localhost` when publishing or subscribing within the container:
+   ```bash
+   mosquitto_pub -h <host-ip> -p 1884 -t "test/topic" -m "Hello Mosquitto"
+   ```
+3. For example:
+   ```bash
+   aiman@mimos-desktop:/home/work/mqtt5$ hostname -I
+10.1.43.8 172.17.0.1 2407:4000:2:243:172:9b27:611e:80ee 2407:4000:2:243:d54a:8856:968f:86f1 2407:4000:2:243:443a:3feb:98e:22a9 2407:4000:2:243:d7a9:252c:4a4a:43a6    
+   ```
+  Translates to:
+```bash
+mosquitto_pub -h 172.17.0.1 -p 1884 -t "test/topic" -m "Hello Mosquitto"
+```
