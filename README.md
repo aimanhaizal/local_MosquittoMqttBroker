@@ -1,5 +1,5 @@
 # How to setup Mosquitto MQTT Broker using docker 
-This guide is a mixture of a guide by sukesh-ak ['setup-mosquitto-with-docker'](https://github.com/sukesh-ak/setup-mosquitto-with-docker/blob/main/README.md) as well as chat-GPT
+This guide is a mixture of a guide by sukesh-ak ['setup-mosquitto-with-docker'](https://github.com/sukesh-ak/setup-mosquitto-with-docker/blob/main/README.md) as well as chat-GPT instructions.
 These instructions is an extremely simple guide to setup an mqtt broker with anonymous connections ```(allow_anonymous false)``` as well as a simple subscribing and publishing.
 ___
 Here's a streamlined guide for setting up a Mosquitto MQTT broker in Docker without authentication or advanced configurations:
