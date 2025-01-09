@@ -76,8 +76,6 @@ docker run -d \
   -v "$(pwd)/log:/mosquitto/log" \
   eclipse-mosquitto
 ```
-With the above setup, this makes the ```publisher``` send to ```1884``` and the ```subscriber``` listen to ```1883```.
-
 ---
 
 ### 5. Verify the Container is Running
