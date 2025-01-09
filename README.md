@@ -113,6 +113,11 @@ mosquitto_sub -h localhost -p 1884 -t "test/topic"
 ```bash
 mosquitto_pub -h localhost -p 1884 -t "test/topic" -m "Hello Mosquitto"
 ```
+**Errors**: If error comes with ```sudo apt install mosquitto-clients```
+```bash
+apt update
+apt install mosquitto-clients
+```
 
 ---
 
