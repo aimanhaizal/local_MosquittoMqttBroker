@@ -182,7 +182,8 @@ Find the IP address of your Docker host:
    ```
 3. For example:
    ```bash
-   aiman@mimos-desktop:/home/work/mqtt5$ hostname -I 10.1.43.8 172.17.0.1 2407:4000:2:243:172:9b27:611e:80ee 2407:4000:2:243:d54a:8856:968f:86f1 2407:4000:2:243:443a:3feb:98e:22a9 2407:4000:2:243:d7a9:252c:4a4a:43a6    
+   aiman@mimos-desktop:/home/work/mqtt5$ hostname -I \
+   10.1.43.8 172.17.0.1 2407:4000:2:243:172:9b27:611e:80ee 2407:4000:2:243:d54a:8856:968f:86f1 2407:4000:2:243:443a:3feb:98e:22a9 2407:4000:2:243:d7a9:252c:4a4a:43a6    
    ```
   Translates to:
 ```bash
