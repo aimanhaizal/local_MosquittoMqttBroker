@@ -106,13 +106,13 @@ sudo apt install mosquitto-clients
 **Subscriber:** Start a subscriber to listen to a topic:
 
 ```bash
-mosquitto_sub -t "test/topic"
+mosquitto_sub -h localhost -p 1884 -t "test/topic"
 ```
 
 **Publisher:** Publish a message to the topic:
 
 ```bash
-mosquitto_pub -t "test/topic" -m "Hello, Mosquitto!"
+mosquitto_pub -h localhost -p 1884 -t "test/topic" -m "Hello Mosquitto"
 ```
 
 ---
