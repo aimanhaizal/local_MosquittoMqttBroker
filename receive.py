@@ -1,9 +1,12 @@
 import paho.mqtt.client as mqtt
 import time
 
-broker = "localhost"  # MQTT broker address
-port = 1883  # MQTT port
+broker = "10.1.43.8"
+port = 1884
 topic = "test/topic"
+num_publishers = 10
+messages_per_second = 3
+duration = 30
 total_messages_expected = num_publishers * messages_per_second * duration  # Total expected messages
 received_messages = 0
 latencies = []  # To track latencies
