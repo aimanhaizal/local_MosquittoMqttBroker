@@ -194,7 +194,7 @@ Find the IP address of your Docker host:
 
 
 
-# Part 3: Sending data into the MQTT Broker
+# Part 3: Sending/Receiving data into the MQTT Broker
 The mqtt broker is currently inside of the workstation ```10.1.43.8``` inside of the docker container ```mosquitto``` with the exposed port of ```1884```.
 
   **Publishing from a different container**
