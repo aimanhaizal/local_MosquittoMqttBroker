@@ -4,7 +4,8 @@ import random
 import string
 
 # MQTT broker details
-broker = "172.17.0.1"
+# broker = "172.17.0.1"
+broker = "10.1.43.8"
 port = 1884
 topic = "test/topic"
 
@@ -24,7 +25,7 @@ client.loop_start()
 try:
     while True:
         payload = generate_payload()  # Generate 60-byte payload
-        client.publish(topic, payload)  # Publish to the broker
+        client.publish(topic, payload, qos=1)  # Publish to the broker
         print(f"Sent: {payload}")  # Print the sent payload (optional)
         time.sleep(1)  # Wait for 1 second before sending the next message
 
@@ -34,5 +35,3 @@ except KeyboardInterrupt:
 finally:
     client.loop_stop()  # Stop the loop
     client.disconnect()  # Disconnect from the broker
-
-# change the code to take the data from the csv files with qos = 1
