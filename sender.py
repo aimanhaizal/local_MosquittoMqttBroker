@@ -2,8 +2,8 @@ import paho.mqtt.client as mqtt
 import time
 import threading
 
-broker = "localhost"  # MQTT broker address
-port = 1883  # MQTT port
+broker = "10.1.43.8"
+port = 1884
 topic = "test/topic"
 messages_per_second = 3  # 3 messages per second
 num_publishers = 10
