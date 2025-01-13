@@ -201,4 +201,10 @@ The mqtt broker is currently inside of the workstation ```10.1.43.8``` inside of
    ```bash
    sudo apt install mosquitto-clients
    mosquitto_pub -h 10.1.43.8 -p 1884 -t "test/topic" -m "Hello Mosquitto"
+   ```
+
+  **Subscribing from a different container**
+   ```bash
+   sudo apt install mosquitto-clients
+   mosquitto_sub -h 10.1.43.8 -p 1884 -t "test/topic"
    ```  
