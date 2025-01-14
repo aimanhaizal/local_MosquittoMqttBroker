@@ -2,7 +2,6 @@ import os
 import paho.mqtt.client as mqtt
 import time
 import random
-# import string
 import json  # Import the json module
 from datetime import datetime
 from inspect import getsourcefile
@@ -13,35 +12,35 @@ broker = "10.1.43.8"
 port = 1884
 topic = "test/topic"
 
+FRAME_COUNTER = 0
+print_counter = 0
+
 # Define the directory containing AWS data
 DIRECTORY = os.path.dirname(getsourcefile(lambda: 0))
 os.chdir(DIRECTORY)
 AWS_DATA_DIR = DIRECTORY+"/AWS_DATA/"
-
-
-
-
-# AWS_DATA_DIR = "./AWS_DATA/"
 
 # Define the payload generation function
 def generate_payload():
     # Example placeholders for required values
     device = type('Device', (object,), {"device_id": 12, "user_id": 12})()  # Mock device object
     Timestamp = str(datetime.now().strftime(("%Y-%m-%d %H:%M:%S")))
+
+    # change to 1,3
     i = random.randint(0, 100)  # Random index for SORT_KEY
-    totalApparent = random.uniform(0, 100)  # Random total apparent power
-    # FRAME_COUNTER = random.randint(0, 10)  # Random frame counter
-    FRAME_COUNTER = 0  # Hardcoded frame counter
 
     file_list = os.listdir(AWS_DATA_DIR)
     file_list.sort()
+
     applianceDataFrame = pd.read_csv(os.path.join(AWS_DATA_DIR, file_list[0]))
+    totalApparent = applianceDataFrame.ApparentPower[FRAME_COUNTER]
+
     self = type('Self', (object,), {"ED_FLAG": True, "grad_value": 0.5})()  # Mock self object
-    print_counter = random.randint(1, 100)  # Random print counter
+    # print_counter = random.randint(1, 100)  # Random print counter
 
     payload = {
         "DEVICE_ID": int(device.device_id),
-        "SORT_KEY": f"{Timestamp}#{i}",
+        "SORT_KEY": f"{Timestamp}#{FRAME_COUNTER}",# change this to 1,3 for the sending 3 a second
         "CREATE_DATE": Timestamp,
         "CREATE_USER_ID": int(device.user_id),
         "UPDATE_DATE": Timestamp,
@@ -76,8 +75,15 @@ try:
     while True:
         payload = generate_payload()  # Generate payload
         payload_str = json.dumps(payload)  # Serialize payload to JSON string
+        print_counter = print_counter + 1
+        print("\nprint_counter: ", print_counter)
         client.publish(topic, payload_str, qos=1)  # Publish the serialized payload
         print(f"Sent: {payload_str}")  # Print the sent payload (optional)
+
+        FRAME_COUNTER += 1
+        if FRAME_COUNTER == 400:
+            FRAME_COUNTER = 0
+
         time.sleep(1)  # Wait for 1 second before sending the next message
 
 except KeyboardInterrupt:
