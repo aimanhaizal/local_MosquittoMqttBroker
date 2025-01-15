@@ -39,7 +39,6 @@ def generate_payload():
     totalApparent = applianceDataFrame.ApparentPower[FRAME_COUNTER]
 
     self = type('Self', (object,), {"ED_FLAG": True, "grad_value": 0.5})()  # Mock self object
-    # print_counter = random.randint(1, 100)  # Random print counter
 
     payload = {
         "DEVICE_ID": int(device.device_id),
