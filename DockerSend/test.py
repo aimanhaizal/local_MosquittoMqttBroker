@@ -29,9 +29,6 @@ def generate_payload():
     # change to 1,3
     i = random.randint(0, 100)  # Random index for SORT_KEY
 
-    # change to counting up.
-    # FRAME_COUNTER = 0  # Hardcoded frame counter
-
     file_list = os.listdir(AWS_DATA_DIR)
     file_list.sort()
 
