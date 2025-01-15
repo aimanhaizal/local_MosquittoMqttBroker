@@ -216,4 +216,9 @@ The mqtt broker is currently inside of the workstation ```10.1.43.8``` inside of
 ```bash
 mosquitto_sub -h 10.1.43.8 -p 1884 -t "test/topic"
 ```
-> **Publishing to the MQTT Broker**: Download the DockerSend file in this repository, and run test.py.
+> **Publishing to the MQTT Broker**: Download the DockerSend file in this repository, and run test.py. A sample can be found in workstation ```10.1.43.25```, in docker container ```nervous_wilson```
+```bash
+docker exec -it nervous_wilson bash
+cd home/project/DockerSend/
+python3 test.py
+```
