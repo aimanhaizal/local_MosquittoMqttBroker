@@ -208,3 +208,11 @@ The mqtt broker is currently inside of the workstation ```10.1.43.8``` inside of
    sudo apt install mosquitto-clients
    mosquitto_sub -h 10.1.43.8 -p 1884 -t "test/topic"
    ```  
+# Part 3: Delivery
+> [!NOTE]  
+> **MQTT Broker** : Inside of ```10.1.43.8``` Workstation, docker container ```mosquitto```
+> **Subscribing to the MQTT Broker**:
+```bash
+mosquitto_sub -h 10.1.43.8 -p 1884 -t "test/topic"
+```
+> **Publishing to the MQTT Broker**: Download the DockerSend file in this repository, and run test.py.
