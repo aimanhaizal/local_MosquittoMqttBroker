@@ -3,6 +3,7 @@ This guide is a mixture of a guide by sukesh-ak ['setup-mosquitto-with-docker'](
 These instructions is an extremely simple guide to setup an mqtt broker with anonymous connections ```(allow_anonymous true)``` as well as a simple subscribing and publishing.
 
 This installs ```eclipse-mosquitto``` using Docker Hub, which at the time of writing is version **2.0.20**.
+
 Docker Hub documentation [here](https://hub.docker.com/_/eclipse-mosquitto/). 
 ___
 Here's a streamlined guide for setting up a Mosquitto MQTT broker in Docker without authentication or advanced configurations:
