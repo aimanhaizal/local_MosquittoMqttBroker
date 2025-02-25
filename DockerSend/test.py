@@ -11,9 +11,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # MQTT broker details
-broker = "10.1.43.8"
-port = 1884
-topic = "test/topic"
+broker = os.getenv("MQTT_BROKER")
+port = int(os.getenv("MQTT_PORT"))
+topic = os.getenv("MQTT_TOPIC")
 
 FRAME_COUNTER = 0
 print_counter = 0
@@ -62,7 +62,7 @@ def generate_payload():
         "PRINT_COUNTER": print_counter
     }
 
-    return payload
+    return payload 
 
 # Set up MQTT client
 client = mqtt.Client()
