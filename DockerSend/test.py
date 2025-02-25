@@ -49,15 +49,15 @@ def generate_payload(data_file):
         "UPDATE_DATE": Timestamp,
         "UPDATE_USER_ID": int(device.user_id),
         "APPARENT_POWER": totalApparent,
-        "REACTIVE_POWER": applianceDataFrame.ReactivePower[FRAME_COUNTER],
-        "HARMONIC_DISTORTION_POWER": applianceDataFrame.HarmonicDistortionPower[FRAME_COUNTER],
-        "TOTAL_POWER_FACTOR": applianceDataFrame.TotalPowerFactor[FRAME_COUNTER],
-        "COEFFICIENT_REAL_3H": applianceDataFrame.CoefficientReal3H[FRAME_COUNTER],
-        "COEFFICIENT_REAL_5H": applianceDataFrame.CoefficientReal5H[FRAME_COUNTER],
-        "COEFFICIENT_REAL_7H": applianceDataFrame.CoefficientReal7H[FRAME_COUNTER],
-        "COEFFICIENT_REAL_9H": applianceDataFrame.CoefficientReal9H[FRAME_COUNTER],
-        "COEFFICIENT_REAL_70HZ": applianceDataFrame.CoefficientReal70Hz[FRAME_COUNTER],
-        "PHASE_SHIFT": applianceDataFrame.PhaseShift[FRAME_COUNTER],
+        "REACTIVE_POWER": int(applianceDataFrame.ReactivePower[FRAME_COUNTER]),  # Convert to native Python int
+        "HARMONIC_DISTORTION_POWER": int(applianceDataFrame.HarmonicDistortionPower[FRAME_COUNTER]),  # Convert to native Python int
+        "TOTAL_POWER_FACTOR": float(applianceDataFrame.TotalPowerFactor[FRAME_COUNTER]),  # Convert to native Python float
+        "COEFFICIENT_REAL_3H": float(applianceDataFrame.CoefficientReal3H[FRAME_COUNTER]),  # Convert to native Python float
+        "COEFFICIENT_REAL_5H": float(applianceDataFrame.CoefficientReal5H[FRAME_COUNTER]),  # Convert to native Python float
+        "COEFFICIENT_REAL_7H": float(applianceDataFrame.CoefficientReal7H[FRAME_COUNTER]),  # Convert to native Python float
+        "COEFFICIENT_REAL_9H": float(applianceDataFrame.CoefficientReal9H[FRAME_COUNTER]),  # Convert to native Python float
+        "COEFFICIENT_REAL_70HZ": float(applianceDataFrame.CoefficientReal70Hz[FRAME_COUNTER]),  # Convert to native Python float
+        "PHASE_SHIFT": float(applianceDataFrame.PhaseShift[FRAME_COUNTER]),  # Convert to native Python float
         "DETECTION": self.ED_FLAG,
         "GRADIENT": self.grad_value,
         "PRINT_COUNTER": print_counter
