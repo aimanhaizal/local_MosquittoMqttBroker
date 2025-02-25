@@ -6,6 +6,9 @@ import json  # Import the json module
 from datetime import datetime
 from inspect import getsourcefile
 import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # MQTT broker details
 broker = "10.1.43.8"
