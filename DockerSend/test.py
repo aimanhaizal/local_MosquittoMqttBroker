@@ -14,6 +14,7 @@ load_dotenv()
 broker = os.getenv("MQTT_BROKER")
 port = int(os.getenv("MQTT_PORT"))
 topic = os.getenv("MQTT_TOPIC")
+data_file = os.getenv("DATA_FILE")
 
 FRAME_COUNTER = 0
 print_counter = 0
@@ -21,10 +22,10 @@ print_counter = 0
 # Define the directory containing AWS data
 DIRECTORY = os.path.dirname(getsourcefile(lambda: 0))
 os.chdir(DIRECTORY)
-AWS_DATA_DIR = DIRECTORY+"/AWS_DATA/"
+AWS_DATA_DIR = os.path.join(DIRECTORY, "AWS_DATA")
 
 # Define the payload generation function
-def generate_payload():
+def generate_payload(data_file):
     # Example placeholders for required values
     device = type('Device', (object,), {"device_id": 12, "user_id": 12})()  # Mock device object
     Timestamp = str(datetime.now().strftime(("%Y-%m-%d %H:%M:%S")))
@@ -35,7 +36,7 @@ def generate_payload():
     file_list = os.listdir(AWS_DATA_DIR)
     file_list.sort()
 
-    applianceDataFrame = pd.read_csv(os.path.join(AWS_DATA_DIR, file_list[0]))
+    applianceDataFrame = pd.read_csv(os.path.join(AWS_DATA_DIR, data_file))
     totalApparent = applianceDataFrame.ApparentPower[FRAME_COUNTER]
 
     self = type('Self', (object,), {"ED_FLAG": True, "grad_value": 0.5})()  # Mock self object
@@ -75,7 +76,7 @@ client.loop_start()
 
 try:
     while True:
-        payload = generate_payload()  # Generate payload
+        payload = generate_payload(data_file)  # Generate payload
         payload_str = json.dumps(payload)  # Serialize payload to JSON string
         print_counter = print_counter + 1
         print("\nprint_counter: ", print_counter)
