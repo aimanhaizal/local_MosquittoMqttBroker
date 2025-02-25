@@ -7,6 +7,7 @@ from datetime import datetime
 from inspect import getsourcefile
 import pandas as pd
 from dotenv import load_dotenv
+import signal
 
 load_dotenv()
 
@@ -74,6 +75,19 @@ client.connect(broker, port, 60)
 # Start the loop to handle network traffic
 client.loop_start()
 
+def cleanup(*args):
+    payload = generate_payload(data_file)
+    payload["DETECTION"] = False
+    client.publish(topic, json.dumps(payload), qos=1)   
+    print("Terminating the publisher.")
+    client.loop_stop()  # Stop the loop
+    client.disconnect()  # Disconnect from the broker
+    exit(0)
+
+# Register the cleanup function for SIGTERM
+signal.signal(signal.SIGTERM, cleanup)
+signal.signal(signal.SIGHUP, cleanup)
+
 try:
     while True:
         payload = generate_payload(data_file)  # Generate payload
@@ -89,9 +103,8 @@ try:
 
         time.sleep(1)  # Wait for 1 second before sending the next message
 
-except KeyboardInterrupt:
-    print("Terminating the publisher.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 
 finally:
-    client.loop_stop()  # Stop the loop
-    client.disconnect()  # Disconnect from the broker
+    cleanup()
