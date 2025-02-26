@@ -8,6 +8,7 @@ from inspect import getsourcefile
 import pandas as pd
 from dotenv import load_dotenv
 import signal
+import numpy as np
 
 load_dotenv()
 
@@ -40,7 +41,13 @@ def generate_payload(data_file):
     applianceDataFrame = pd.read_csv(os.path.join(AWS_DATA_DIR, data_file))
     totalApparent = applianceDataFrame.ApparentPower[FRAME_COUNTER]
 
-    self = type('Self', (object,), {"ED_FLAG": True, "grad_value": 0.5})()  # Mock self object
+    # Calculate the real power using the apparent power and power factor
+    realPower = totalApparent * applianceDataFrame.TotalPowerFactor[FRAME_COUNTER]
+    efficiencyScore = applianceDataFrame.TotalPowerFactor[FRAME_COUNTER] * (1 - applianceDataFrame.HarmonicDistortionPower[FRAME_COUNTER])
+
+    gradient = np.gradient(applianceDataFrame.ApparentPower)[FRAME_COUNTER]
+
+    self = type('Self', (object,), {"ED_FLAG": True, "grad_value": gradient})()  # Mock self object
 
     payload = {
         "DEVICE_ID": int(device.device_id),
@@ -51,6 +58,8 @@ def generate_payload(data_file):
         "UPDATE_USER_ID": int(device.user_id),
         "APPARENT_POWER": totalApparent,
         "REACTIVE_POWER": int(applianceDataFrame.ReactivePower[FRAME_COUNTER]),  # Convert to native Python int
+        "REAL_POWER": realPower,
+        "EFFICIENCY_SCORE": efficiencyScore,
         "HARMONIC_DISTORTION_POWER": int(applianceDataFrame.HarmonicDistortionPower[FRAME_COUNTER]),  # Convert to native Python int
         "TOTAL_POWER_FACTOR": float(applianceDataFrame.TotalPowerFactor[FRAME_COUNTER]),  # Convert to native Python float
         "COEFFICIENT_REAL_3H": float(applianceDataFrame.CoefficientReal3H[FRAME_COUNTER]),  # Convert to native Python float
