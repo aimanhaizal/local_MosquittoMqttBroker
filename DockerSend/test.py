@@ -104,7 +104,6 @@ try:
         print_counter = print_counter + 1
         print("\nprint_counter: ", print_counter)
         client.publish(topic, payload_str, qos=1)  # Publish the serialized payload
-        print(f"Sent: {payload_str}")  # Print the sent payload (optional)
 
         FRAME_COUNTER += 1
         if FRAME_COUNTER == 400:
