@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 import time
+import json
 
 broker = "10.1.43.8"
 port = 1884
@@ -19,11 +20,17 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     global received_messages
     received_messages += 1
-    # Capture latency (time difference between sending and receiving the message)
-    publish_time = float(msg.payload.decode().split(":")[1])
-    latency = time.time() - publish_time
-    latencies.append(latency)
-    print(f"Received: {msg.payload.decode()} | Latency: {latency:.4f}s")
+
+    try:
+        payload = json.loads(msg.payload.decode())
+        publish_time = float(payload["timestamp"])  # Now properly reads it
+        latency = time.time() - publish_time
+        latencies.append(latency)
+        print(f"Received: {payload} | Latency: {latency:.4f}s")
+    except (json.JSONDecodeError, KeyError, ValueError) as e:
+        print(f"Failed to process message: {msg.payload.decode()} | Error: {e}")
+
+
 
 # Start subscriber clients
 def start_subscriber():
